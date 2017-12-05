@@ -10,8 +10,8 @@ body {
   padding: 1.25rem 2.5rem; }
 
 .content-section {
-  padding-top: 7.5rem;
-  padding-bottom: 7.5rem; }
+  padding-top: 2.5rem;
+  padding-bottom: 1.5rem; }
 
 .content-section-heading h2 {
   font-size: 3rem; }
@@ -232,7 +232,7 @@ h6 {
         clip-path: inset(2rem); } }
 
 footer.footer {
-  padding-top: 5rem;
+  padding-top: 1rem;
   padding-bottom: 1rem; }
   footer.footer .social-link {
     display: block;
