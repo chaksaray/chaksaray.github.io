@@ -69,3 +69,7 @@ main > .tagline {
 	width: 2.65rem;
 	height: 2.65rem;
 }
+
+.module-title, .card-title{
+	font-family: 'Reem Kufi', sans-serif;
+}
