@@ -1,18 +1,25 @@
 /* Theme */
 
 main {
-	background: darkslateblue;
-	color: #FAFAFA;
+    background: rgb(211, 210, 216);
+    color: black;
 }
 
 a {
-	color: #fff;
+    background: rgb(211, 210, 216) !important;
+    color: black;
+    text-decoration: none !important;
 }
 
 .icons-social a {
-	color: #FAFAFA;
+    color: black;
 }
 
-.icons-social a svg path{
-	fill: #FAFAFA;
+.icons-social a:hover,
+.icons-social a:active {
+    color: #0070f3;
+}
+
+.icons-social a svg path {
+    fill: white;
 }
