@@ -1,12 +1,12 @@
 /* Theme */
 
 main {
-    background: rgb(211, 210, 216);
+    background: darkgray;
     color: black;
 }
 
 a {
-    background: rgb(211, 210, 216) !important;
+    background: darkgray !important;
     color: black;
     text-decoration: none !important;
 }
@@ -17,9 +17,9 @@ a {
 
 .icons-social a:hover,
 .icons-social a:active {
-    color: #0070f3;
+    color: white !important;
 }
 
 .icons-social a svg path {
-    fill: white;
+    fill: black;
 }
