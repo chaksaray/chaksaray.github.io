@@ -8,6 +8,9 @@ p,
 a {
     font-family: "Kantumruy Pro" !important;
 }
+main, a {
+    background: #396c6c !important;
+}
 
 @media (min-width: 576px) {
     html {
