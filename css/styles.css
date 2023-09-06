@@ -6,7 +6,7 @@ h2,
 h3,
 p,
 a {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Kantumruy Pro" !important;
 }
 
 @media (min-width: 576px) {
