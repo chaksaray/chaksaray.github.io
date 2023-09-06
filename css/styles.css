@@ -47,7 +47,6 @@ main {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #396c6c !important;
 }
 
 main > .intro {
@@ -88,7 +87,6 @@ main > .tagline {
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
     max-width: 300px;
-    background: #396c6c !important;
 }
 
 .card:hover,
