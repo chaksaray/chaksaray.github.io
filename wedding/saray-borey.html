@@ -2,6 +2,7 @@
 <html lang="km">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com data:; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F0EDD7">
 <meta name="description" content="សូមគោរពអញ្ជើញចូលរួមពិធីអាពាហ៍ពិពាហ៍ ចក់ សារាយ & យី បូរី · ថ្ងៃអាទិត្យ ទី០៨ ខែវិច្ឆិកា ឆ្នាំ២០២៦ ម៉ោង ៥:០០ ល្ងាច">
@@ -10,17 +11,17 @@
 <meta property="og:title" content="សិរីសួស្តីអាពាហ៍ពិពាហ៍ · សារាយ ♥ បូរី">
 <meta property="og:description" content="ថ្ងៃអាទិត្យ ទី០៨ ខែវិច្ឆិកា ឆ្នាំ២០២៦ · ម៉ោង ៥:០០ ល្ងាច · ខេត្តកណ្ដាល">
 <meta property="og:url" content="https://chaksaray.github.io/wedding/saray-borey.html">
-<meta property="og:image" content="https://chaksaray.github.io/wedding/og-cover.jpg">
-<meta property="og:image:secure_url" content="https://chaksaray.github.io/wedding/og-cover.jpg">
+<meta property="og:image" content="https://chaksaray.github.io/wedding/og-cover.jpg?v=3">
+<meta property="og:image:secure_url" content="https://chaksaray.github.io/wedding/og-cover.jpg?v=3">
 <meta property="og:image:type" content="image/jpeg">
 <meta property="og:locale" content="km_KH">
 <link rel="canonical" href="https://chaksaray.github.io/wedding/saray-borey.html">
-<link rel="image_src" href="https://chaksaray.github.io/wedding/og-cover.jpg">
+<link rel="image_src" href="https://chaksaray.github.io/wedding/og-cover.jpg?v=3">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="ធៀបអាពាហ៍ពិពាហ៍ សារាយ ♥ បូរី">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://chaksaray.github.io/wedding/og-cover.jpg">
+<meta name="twitter:image" content="https://chaksaray.github.io/wedding/og-cover.jpg?v=3">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8D%3C/text%3E%3C/svg%3E">
 
 <title>សិរីសួស្តីអាពាហ៍ពិពាហ៍ · សារាយ & បូរី</title>
@@ -90,6 +91,9 @@ a{color:var(--ink-deep)}
 .gate-title{font-size:20px;color:var(--ink);margin:4px 0}
 .gate-date{color:var(--ink-deep);font-weight:700;margin:4px 0}
 .to-guest{color:var(--muted);font-size:14px;margin-top:22px}
+.guest{margin:-6px auto 16px;max-width:100%;padding:0 6px;font-size:21px;font-weight:700;line-height:1.7;color:var(--olive);overflow-wrap:anywhere}
+.guest[hidden]{display:none}
+
 .btn{
   font:inherit;font-weight:700;cursor:pointer;border:1.5px solid var(--ink);
   background:var(--ink);color:#2F3812;padding:10px 28px;border-radius:999px;
@@ -250,6 +254,7 @@ svg.map{display:block;width:100%;height:auto;background:transparent}
     <svg class="flourish"><use href="#flourish" xlink:href="#flourish"/></svg>
     <p class="gate-date">ថ្ងៃអាទិត្យ ទី០៨ ខែវិច្ឆិកា ឆ្នាំ២០២៦<br>វេលាម៉ោង ៥:០០ ល្ងាច</p>
     <p class="to-guest">សូមគោរពអញ្ជើញ</p>
+    <p class="guest" id="guest" hidden></p>
     <button class="btn" id="openBtn" type="button">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="1"/></svg>
       បើកធៀប
@@ -669,6 +674,51 @@ addEventListener('resize', fitMono);
   V.addEventListener('wheel', e => { e.preventDefault(); zoomAt(s * Math.exp(-e.deltaY * 0.0022), e.clientX, e.clientY); }, { passive: false });
   // iOS Safari: stop the page itself from pinch-zooming behind the viewer
   ['gesturestart', 'gesturechange'].forEach(t => V.addEventListener(t, e => e.preventDefault()));
+})();
+
+/* ---------- guest name from ?n=  (shown as plain text only, never parsed as HTML) ---------- */
+(function () {
+  var el = document.getElementById('guest');
+  if (!el) return;
+
+  // Read ?n= by hand so an unencoded "&" inside a name ("Sothy & Wife") is kept:
+  // the value only ends at an "&" that starts a real parameter (e.g. "&v=3").
+  function rawParam(key) {
+    var q = (location.search || '').replace(/^\?/, '');
+    var m = q.match(new RegExp('(?:^|&)' + key + '=([\\s\\S]*?)(?=&[A-Za-z0-9_]+=|$)'));
+    return m ? m[1] : null;
+  }
+  function decode(v) {
+    v = v.replace(/\+/g, ' ');
+    try { return decodeURIComponent(v); }
+    catch (e) {   // broken encoding: decode the valid pieces, drop the rest
+      return v.replace(/(?:%[0-9A-Fa-f]{2})+/g, function (s) {
+        try { return decodeURIComponent(s); } catch (e2) { return ''; }
+      }).replace(/%/g, '');
+    }
+  }
+  // Allow-list: letters of any script (incl. Khmer), combining marks, digits, space and . & , ' ’ ( ) - /
+  var notAllowed;
+  try { notAllowed = new RegExp("[^\\p{L}\\p{M}\\p{N} .&,'\u2019()\\-/]", 'gu'); }
+  catch (e) { notAllowed = /[<>"`{}\[\]\\=;:%$#@!?*|^~]/g; }   // very old browsers: strip risky symbols
+
+  var raw = rawParam('n');
+  if (raw === null) return;                                        // no ?n → original design, unchanged
+  var name = decode(raw);
+  // Anything that looks like markup or code is rejected outright (not shown at all)
+  if (/[<>"`{}\[\]\\=;]|javascript:|data:|on\w+\s*=/i.test(name)) return;
+  if (name.normalize) name = name.normalize('NFC');
+  name = name
+    .replace(/[\u0000-\u001F\u007F-\u009F\u200B\u200E\u200F\u202A-\u202E\u2028\u2029\u2066-\u2069\uFEFF]/g, '') // control / direction chars
+    .replace(notAllowed, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+  name = Array.from(name).slice(0, 60).join('').trim();            // max 60 characters
+  if (!name) return;
+  try { if (!/[\p{L}\p{N}]/u.test(name)) return; } catch (e) {}   // must contain at least one letter/digit
+
+  el.textContent = name;                                           // textContent → can never run as code
+  el.hidden = false;
 })();
 </script>
 </body>
